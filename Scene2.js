@@ -18,7 +18,7 @@ class Scene2 extends BaseScene {
         this.levelMusic = this.sound.add("audio_chipmunk");
 
         let musicConfig = {
-            mute: false,
+            mute: true,
             volume: 0.2,
             rate: 1,
             detune: 0,

@@ -19,11 +19,11 @@ class Scene1 extends BaseScene {
         this.levelMusic = this.sound.add("audio_crowd");
 
         let musicConfig = {
-            mute: false,
+            mute: true,
             volume: 0.2,
             rate: 1,
             detune: 0,
-            loop: true,
+            loop: false,
             delay: 0
         };
 

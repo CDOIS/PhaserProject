@@ -50,9 +50,9 @@ class BaseScene extends Phaser.Scene {
             }
 
             //Preload our EVENT sounds
-            this.load.audio("audio_fireball", "assets/sounds/fireball.mp3");
+            this.load.audio("audio_fireball", "assets/sounds/bombblow.mp3");
             this.load.audio("audio_explosion", "assets/sounds/explosion.mp3");
-            this.load.audio("audio_game_over", "assets/sounds/game_over.mp3");
+            this.load.audio("audio_game_over", "assets/sounds/linkdie.mp3");
         }
 
         create(mapKey) {
