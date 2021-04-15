@@ -5,11 +5,11 @@ class BaseScene extends Phaser.Scene {
         static LINK_SPEED = 5;
         static MINION_SPEED = 5;
         static MINION_SCORE = 10;
-        static BLACKKNIGHT_SPEED = 6;
-        static BLACKKNIGHT_SCORE = 50;
+        static ENEMIES_SPEED = 6;
+        static ENEMIES_SCORE = 50;
 
-        static EVILPRINCE_SPEED = 7;
-        static EVILPRINCE_SCORE = 100;
+        static ENEMIES1_SPEED = 7;
+        static ENEMIES1_SCORE = 100;
 
         static CURRENT_SCORE = 0;
         static gamePaused = false;
@@ -90,9 +90,9 @@ class BaseScene extends Phaser.Scene {
                 this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
                 //Create the link Sprite(Coke) and scale up! Mario Mushroom!
-                this.link = this.matter.add.sprite(400, 1300, 'character_sprites', 'link-back-0.png');
+                this.link = this.matter.add.sprite(400, 1300, 'character_sprites', 'dink-back-0.png');
                 this.link.setScale(2);
-                this.link.setName("king");
+                this.link.setName("dink");
                 //StopRotation 
                 this.link.setBounce(0.2);
                 this.link.setFixedRotation();
@@ -288,20 +288,20 @@ class BaseScene extends Phaser.Scene {
                     let newBlackKnight = this.matter.add.sprite(
                         spawnPoints[spawnPointIndex].x,
                         spawnPoints[spawnPointIndex].y,
-                        'character_sprites', 'blackknight-front-0.png'
+                        'character_sprites', 'enemy-front-0.png'
                     );
 
                     //set BK properties
                     newBlackKnight.maxHitCount = 2;
                     newBlackKnight.hitCount = 0;
-                    newBlackKnight.enemyType = "blackknight";
-                    newBlackKnight.speed = BaseScene.BLACKKNIGHT_SPEED;
-                    newBlackKnight.scoreValue = BaseScene.BLACKKNIGHT_SCORE;
+                    newBlackKnight.enemyType = "enemy";
+                    newBlackKnight.speed = BaseScene.ENEMIES_SPEED;
+                    newBlackKnight.scoreValue = BaseScene.ENEMIES_SCORE;
 
                     newBlackKnight.setScale(2);
                     newBlackKnight.setBounce(0.2);
                     newBlackKnight.setFixedRotation();
-                    newBlackKnight.setName("enemy-blackknight" + (i + 1));
+                    newBlackKnight.setName("enemy-enemy" + (i + 1));
 
                     //Temp - log spawn point chosen;
                     console.log(newBlackKnight.name + " created at spawn point: :" + spawnPointIndex);
@@ -325,20 +325,20 @@ class BaseScene extends Phaser.Scene {
                     let newEvilPrince = this.matter.add.sprite(
                         spawnPoints[spawnPointIndex].x,
                         spawnPoints[spawnPointIndex].y,
-                        'character_sprites', 'evilprince-front-0.png'
+                        'character_sprites', 'enemy1-front-0.png'
                     );
 
                     //set EP properties
                     newEvilPrince.maxHitCount = 3;
                     newEvilPrince.hitCount = 0;
-                    newEvilPrince.enemyType = "evilprince";
-                    newEvilPrince.speed = BaseScene.EVILPRINCE_SPEED;
-                    newEvilPrince.scoreValue = BaseScene.EVILPRINCE_SCORE;
+                    newEvilPrince.enemyType = "enemy1";
+                    newEvilPrince.speed = BaseScene.ENEMIES1_SPEED;
+                    newEvilPrince.scoreValue = BaseScene.ENEMIES1_SCORE;
 
                     newEvilPrince.setScale(2);
                     newEvilPrince.setBounce(0.2);
                     newEvilPrince.setFixedRotation();
-                    newEvilPrince.setName("enemy-evilprince" + (i + 1));
+                    newEvilPrince.setName("enemy-enemy1" + (i + 1));
 
                     //Temp - log spawn point chosen;
                     console.log(newEvilPrince.name + " created at spawn point: :" + spawnPointIndex);
@@ -382,10 +382,10 @@ class BaseScene extends Phaser.Scene {
                 //refactor this into animation method - takes character prefix as a parameter and goes after that
 
                 //create animations;
-                this.createCharacterAnimations("king");
+                this.createCharacterAnimations("dink");
                 this.createCharacterAnimations("minion");
-                this.createCharacterAnimations("blackknight");
-                this.createCharacterAnimations("evilprince");
+                this.createCharacterAnimations("enemy");
+                this.createCharacterAnimations("enemy1");
 
                 //create anim projectiles;
                 this.createFireballAnimations();
@@ -408,8 +408,8 @@ class BaseScene extends Phaser.Scene {
                     //see if this is collision between link and escapePoint
                     // console.log(bodyA.gameObject.name + "-" +
                     //     bodyB.gameObject.name);
-                    if (bodyA.gameObject.name === "king" && bodyB.gameObject.name.startsWith("enemy") ||
-                        bodyA.gameObject.name.startsWith("enemy") && bodyB.gameObject.name === "king") {
+                    if (bodyA.gameObject.name === "dink" && bodyB.gameObject.name.startsWith("enemy") ||
+                        bodyA.gameObject.name.startsWith("enemy") && bodyB.gameObject.name === "dink") {
                         this.kingCaptured();
 
                     } else if (bodyA.gameObject.name === "projectile" && bodyB.gameObject.name.startsWith("enemy") ||
@@ -423,7 +423,7 @@ class BaseScene extends Phaser.Scene {
 
                     }
                     //projectile hitting a non enemy
-                    else if (bodyA.gameObject.name === "projectile" && bodyB.gameObject.name !== "king" ||
+                    else if (bodyA.gameObject.name === "projectile" && bodyB.gameObject.name !== "dink" ||
                         bodyA.gameObject.name !== "king" && bodyB.gameObject.name === "projectile") {
                         if (bodyA.name === "projectile") {
                             this.shotMissed(bodyA.gameObject);
@@ -432,7 +432,7 @@ class BaseScene extends Phaser.Scene {
                         }
 
                     } else if (bodyA.gameObject.name === "king" && bodyB.gameObject.name === "escapePoint" ||
-                        bodyA.gameObject.name === "escapePoint" && bodyB.gameObject.name === "king") {
+                        bodyA.gameObject.name === "escapePoint" && bodyB.gameObject.name === "dink") {
                         console.log("The link escaped through the escape point");
                         this.kingEscapes();
                     }
