@@ -1,7 +1,7 @@
 {
 	"textures": [
 		{
-			"image": "Characters1.png",
+			"image": "Characters2.png",
 			"format": "RGBA8888",
 			"size": {
 				"w": 484,
@@ -178,7 +178,7 @@
 					}
 				},
 				{
-					"filename": "link-back-1.png",
+					"filename": "dink-back-1.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -199,7 +199,7 @@
 					}
 				},
 				{
-					"filename": "link-front-1.png",
+					"filename": "dink-front-1.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -304,7 +304,7 @@
 					}
 				},
 				{
-					"filename": "link-back-2.png",
+					"filename": "dink-back-2.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -325,7 +325,7 @@
 					}
 				},
 				{
-					"filename": "link-front-0.png",
+					"filename": "dink-front-0.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -346,7 +346,7 @@
 					}
 				},
 				{
-					"filename": "link-front-2.png",
+					"filename": "dink-front-2.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -703,7 +703,7 @@
 					}
 				},
 				{
-					"filename": "link-left-0.png",
+					"filename": "dink-left-0.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -724,7 +724,7 @@
 					}
 				},
 				{
-					"filename": "link-left-1.png",
+					"filename": "dink-left-1.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -745,7 +745,7 @@
 					}
 				},
 				{
-					"filename": "link-left-2.png",
+					"filename": "dink-left-2.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -766,7 +766,7 @@
 					}
 				},
 				{
-					"filename": "link-right-0.png",
+					"filename": "dink-right-0.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -787,7 +787,7 @@
 					}
 				},
 				{
-					"filename": "link-right-1.png",
+					"filename": "dink-right-1.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -808,7 +808,7 @@
 					}
 				},
 				{
-					"filename": "link-right-2.png",
+					"filename": "dink-right-2.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {

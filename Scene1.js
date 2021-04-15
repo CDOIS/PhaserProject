@@ -34,10 +34,10 @@ class Scene1 extends BaseScene {
     update() {
         super.update();
     }
-    kingEscapes() {
+    dinkEscapes() {
         //STOP the level sound
         this.levelMusic.stop();
-        super.kingEscapes("Level2");
+        super.dinkEscapes("Level2");
 
     }
 

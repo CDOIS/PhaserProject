@@ -1,14 +1,14 @@
 class BaseScene extends Phaser.Scene {
 
-        // "global" var for link next idle position;
+        // "global" var for dink next idle position;
         // Static vars for char speeds and scores
         static LINK_SPEED = 5;
-        static MINION_SPEED = 5;
+        static MINION_SPEED = 2;
         static MINION_SCORE = 10;
-        static ENEMIES_SPEED = 6;
+        static ENEMIES_SPEED = 2;
         static ENEMIES_SCORE = 50;
 
-        static ENEMIES1_SPEED = 7;
+        static ENEMIES1_SPEED = 2;
         static ENEMIES1_SCORE = 100;
 
         static CURRENT_SCORE = 0;
@@ -20,7 +20,7 @@ class BaseScene extends Phaser.Scene {
 
             this.sceneName = sceneName;
 
-            this.nextDinkIdle = "link-idle-back";
+            this.nextDinkIdle = "dink-idle-back";
             console.log("Finish parent constructor for Base Scene.");
 
         }
@@ -80,7 +80,7 @@ class BaseScene extends Phaser.Scene {
                 const barrelLayer = map.createLayer("Barrels", [tileset1], 0, 0);
                 const bookcaseLayer = map.createLayer("Bookcases", [tileset2], 0, 0);
 
-                //set the camera's start position so we are in the map - Camera centered on the link
+                //set the camera's start position so we are in the map - Camera centered on the dink
                 // this.cameras.main.scrollX = 600;
                 // this.cameras.main.scrollY = 600;
 
@@ -89,15 +89,15 @@ class BaseScene extends Phaser.Scene {
                 //add spacebar
                 this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
-                //Create the link Sprite(Coke) and scale up! Mario Mushroom!
-                this.link = this.matter.add.sprite(400, 1300, 'character_sprites', 'dink-back-0.png');
-                this.link.setScale(2);
-                this.link.setName("dink");
+                //Create the dink Sprite(Coke) and scale up! Mario Mushroom!
+                this.dink = this.matter.add.sprite(400, 1300, 'character_sprites', 'dink-back-0.png');
+                this.dink.setScale(2);
+                this.dink.setName("dink");
                 //StopRotation 
-                this.link.setBounce(0.2);
-                this.link.setFixedRotation();
+                this.dink.setBounce(0.2);
+                this.dink.setFixedRotation();
 
-                //manually add colision zones for foundations layer
+                //manually add collision zones for foundations layer
 
                 let matterInstance = this.matter;
 
@@ -203,9 +203,9 @@ class BaseScene extends Phaser.Scene {
 
                 });
 
-                //set the camera to link!
+                //set the camera to dink!
                 this.cameras.main.setBounds(-(map.widthInPixels / 2), 0, map.widthInPixels + 256, map.heightInPixels + 256)
-                this.cameras.main.startFollow(this.link);
+                this.cameras.main.startFollow(this.dink);
                 //Add Enemies - 
                 //Find Spawn Points
                 let spawnPoints = new Array();
@@ -405,12 +405,12 @@ class BaseScene extends Phaser.Scene {
 
                 //handle matter collision types
                 this.matter.world.on("collisionstart", (event, bodyA, bodyB) => {
-                    //see if this is collision between link and escapePoint
+                    //see if this is collision between dink and escapePoint
                     // console.log(bodyA.gameObject.name + "-" +
                     //     bodyB.gameObject.name);
                     if (bodyA.gameObject.name === "dink" && bodyB.gameObject.name.startsWith("enemy") ||
                         bodyA.gameObject.name.startsWith("enemy") && bodyB.gameObject.name === "dink") {
-                        this.kingCaptured();
+                        this.dinkCaptured();
 
                     } else if (bodyA.gameObject.name === "projectile" && bodyB.gameObject.name.startsWith("enemy") ||
                         bodyA.gameObject.name.startsWith("enemy") && bodyB.gameObject.name === "projectile") {
@@ -424,17 +424,17 @@ class BaseScene extends Phaser.Scene {
                     }
                     //projectile hitting a non enemy
                     else if (bodyA.gameObject.name === "projectile" && bodyB.gameObject.name !== "dink" ||
-                        bodyA.gameObject.name !== "king" && bodyB.gameObject.name === "projectile") {
+                        bodyA.gameObject.name !== "dink" && bodyB.gameObject.name === "projectile") {
                         if (bodyA.name === "projectile") {
                             this.shotMissed(bodyA.gameObject);
                         } else {
                             this.shotMissed(bodyB.gameObject);
                         }
 
-                    } else if (bodyA.gameObject.name === "king" && bodyB.gameObject.name === "escapePoint" ||
+                    } else if (bodyA.gameObject.name === "dink" && bodyB.gameObject.name === "escapePoint" ||
                         bodyA.gameObject.name === "escapePoint" && bodyB.gameObject.name === "dink") {
-                        console.log("The link escaped through the escape point");
-                        this.kingEscapes();
+                        console.log("The dink escaped through the escape point");
+                        this.dinkEscapes();
                     }
                 });
 
@@ -486,95 +486,95 @@ class BaseScene extends Phaser.Scene {
 
                     if (this.cursors.up.isDown && this.cursors.right.isDown) //northeast
                     {
-                        this.link.setVelocityY(-0.5 * (BaseScene.LINK_SPEED));
-                        this.link.setVelocityX(BaseScene.LINK_SPEED);
-                        this.link.play('link-walk-right', true);
-                        this.nextDinkIdle = 'link-idle-right';
-                        this.link.direction = 'northeast';
+                        this.dink.setVelocityY(-0.5 * (BaseScene.LINK_SPEED));
+                        this.dink.setVelocityX(BaseScene.LINK_SPEED);
+                        this.dink.play('dink-walk-right', true);
+                        this.nextDinkIdle = 'dink-idle-right';
+                        this.dink.direction = 'northeast';
                     } else if (this.cursors.down.isDown && this.cursors.right.isDown) //southeast
                     {
-                        this.link.setVelocityY(0.5 * (BaseScene.LINK_SPEED));
-                        this.link.setVelocityX(BaseScene.LINK_SPEED);
-                        this.link.play('link-walk-right', true);
-                        this.nextDinkIdle = 'link-idle-right';
-                        this.link.direction = 'southeast';
+                        this.dink.setVelocityY(0.5 * (BaseScene.LINK_SPEED));
+                        this.dink.setVelocityX(BaseScene.LINK_SPEED);
+                        this.dink.play('dink-walk-right', true);
+                        this.nextDinkIdle = 'dink-idle-right';
+                        this.dink.direction = 'southeast';
 
                     } else if (this.cursors.up.isDown && this.cursors.left.isDown) //northwest
                     {
-                        this.link.setVelocityY(-0.5 * (BaseScene.LINK_SPEED));
-                        this.link.setVelocityX(-(BaseScene.LINK_SPEED));
-                        this.link.play('link-walk-left', true);
-                        this.nextDinkIdle = 'link-idle-left';
-                        this.link.direction = 'northwest';
+                        this.dink.setVelocityY(-0.5 * (BaseScene.LINK_SPEED));
+                        this.dink.setVelocityX(-(BaseScene.LINK_SPEED));
+                        this.dink.play('dink-walk-left', true);
+                        this.nextDinkIdle = 'dink-idle-left';
+                        this.dink.direction = 'northwest';
 
                     } else if (this.cursors.down.isDown && this.cursors.left.isDown) //southwest
                     {
-                        this.link.setVelocityY(0.5 * (BaseScene.LINK_SPEED));
-                        this.link.setVelocityX(-(BaseScene.LINK_SPEED));
-                        this.link.play('link-walk-left', true);
-                        this.nextDinkIdle = 'link-idle-left';
-                        this.link.direction = 'southwest';
+                        this.dink.setVelocityY(0.5 * (BaseScene.LINK_SPEED));
+                        this.dink.setVelocityX(-(BaseScene.LINK_SPEED));
+                        this.dink.play('dink-walk-left', true);
+                        this.nextDinkIdle = 'dink-idle-left';
+                        this.dink.direction = 'southwest';
 
                     }
-                    //link move:
+                    //dink move:
                     else if (this.cursors.up.isDown) {
-                        this.link.setVelocityY(-(BaseScene.LINK_SPEED));
-                        this.link.setVelocityX(0);
-                        this.link.play('link-walk-up', true);
-                        this.nextDinkIdle = 'link-idle-back';
-                        this.link.direction = 'north';
+                        this.dink.setVelocityY(-(BaseScene.LINK_SPEED));
+                        this.dink.setVelocityX(0);
+                        this.dink.play('dink-walk-up', true);
+                        this.nextDinkIdle = 'dink-idle-back';
+                        this.dink.direction = 'north';
 
                     } else if (this.cursors.down.isDown) {
-                        this.link.setVelocityY(BaseScene.LINK_SPEED);
-                        this.link.setVelocityX(0);
-                        this.link.play('link-walk-down', true);
-                        this.nextDinkIdle = 'link-idle-front';
-                        this.link.direction = 'south';
+                        this.dink.setVelocityY(BaseScene.LINK_SPEED);
+                        this.dink.setVelocityX(0);
+                        this.dink.play('dink-walk-down', true);
+                        this.nextDinkIdle = 'dink-idle-front';
+                        this.dink.direction = 'south';
 
                     } else if (this.cursors.right.isDown) {
-                        this.link.setVelocityY(0);
-                        this.link.setVelocityX(BaseScene.LINK_SPEED);
-                        this.link.play('link-walk-right', true);
-                        this.nextDinkIdle = 'link-idle-right';
-                        this.link.direction = 'east';
+                        this.dink.setVelocityY(0);
+                        this.dink.setVelocityX(BaseScene.LINK_SPEED);
+                        this.dink.play('dink-walk-right', true);
+                        this.nextDinkIdle = 'dink-idle-right';
+                        this.dink.direction = 'east';
 
                     } else if (this.cursors.left.isDown) {
-                        this.link.setVelocityY(0);
-                        this.link.setVelocityX(-(BaseScene.LINK_SPEED));
-                        this.link.play('link-walk-left', true);
-                        this.nextDinkIdle = 'link-idle-left';
-                        this.link.direction = 'west';
+                        this.dink.setVelocityY(0);
+                        this.dink.setVelocityX(-(BaseScene.LINK_SPEED));
+                        this.dink.play('dink-walk-left', true);
+                        this.nextDinkIdle = 'dink-idle-left';
+                        this.dink.direction = 'west';
 
                     } else //standing still - show next idle anim.
                     {
-                        this.link.setVelocityY(0);
-                        this.link.setVelocityX(0);
-                        this.link.play(this.nextDinkIdle, true);
+                        this.dink.setVelocityY(0);
+                        this.dink.setVelocityX(0);
+                        this.dink.play(this.nextDinkIdle, true);
                     }
 
                     //start minions moving
                     let currentScene = this;
-                    let king = this.link;
+                    let dink = this.dink;
 
                     //check if minions in camera and start them moving
                     this.enemies.forEach(function(enemy) {
                         if (enemy) {
                             if (currentScene.cameras.main.worldView.contains(enemy.x, enemy.y)) {
-                                //need to determine the orientation between the link and the minion
-                                let kingOrientation = currentScene.getKingEnemyOrientation(king, enemy);
+                                //need to determine the orientation between the dink and the minion
+                                let dinkOrientation = currentScene.getDinkEnemyOrientation(dink, enemy);
                                 let enemyAnimation = enemy.enemyType + "-idle-front";
                                 let enemyXVelocity = 0;
                                 let enemyYVelocity = 0;
 
                                 // if the enemy is not currently movin
                                 if (Math.abs(enemy.body.velocity.x) < 1 && Math.abs(enemy.body.velocity.y) < 1) {
-                                    if (kingOrientation.aspect === "x" && kingOrientation.positive === false) {
+                                    if (dinkOrientation.aspect === "x" && dinkOrientation.positive === false) {
                                         enemyXVelocity = -(enemy.speed);
                                         enemyAnimation = enemy.enemyType + "-walk-left";
-                                    } else if (kingOrientation.aspect === "y" && kingOrientation.positive === true) {
+                                    } else if (dinkOrientation.aspect === "y" && dinkOrientation.positive === true) {
                                         enemyYVelocity = enemy.speed;
                                         enemyAnimation = enemy.enemyType + "-walk-down";
-                                    } else if (kingOrientation.aspect === "y" && kingOrientation.positive === false) {
+                                    } else if (dinkOrientation.aspect === "y" && dinkOrientation.positive === false) {
                                         enemyYVelocity = -(enemy.speed);
                                         enemyAnimation = enemy.enemyType + "-walk-up";
                                     } else {
@@ -585,10 +585,10 @@ class BaseScene extends Phaser.Scene {
                                 }
                                 //else if enemy already moving
                                 else {
-                                    if (enemyXVelocity === 0 && kingOrientation.aspect === "x") {
+                                    if (enemyXVelocity === 0 && dinkOrientation.aspect === "x") {
                                         enemyYVelocity = 0;
-                                        //start moving towards the link on "X"
-                                        if (kingOrientation.positive === true) {
+                                        //start moving towards the dink on "X"
+                                        if (dinkOrientation.positive === true) {
 
                                             enemyXVelocity = enemy.speed;
                                             enemyAnimation = enemy.enemyType + "-walk-right";
@@ -596,10 +596,10 @@ class BaseScene extends Phaser.Scene {
                                             enemyXVelocity = -(enemy.speed);
                                             enemyAnimation = enemy.enemyType + "-walk-left";
                                         }
-                                    } else if (enemyXVelocity === 0 && kingOrientation.aspect === "y") {
+                                    } else if (enemyXVelocity === 0 && dinkOrientation.aspect === "y") {
                                         enemyXVelocity = 0;
-                                        //start moving towards the link on "y"
-                                        if (kingOrientation.positive === true) {
+                                        //start moving towards the dink on "y"
+                                        if (dinkOrientation.positive === true) {
 
                                             enemyYVelocity = enemy.speed;
                                             enemyAnimation = enemy.enemyType + "-walk-down";
@@ -635,15 +635,15 @@ class BaseScene extends Phaser.Scene {
             return stringNumber;
         }
 
-        //orientation between link and enemy
-        getKingEnemyOrientation(king, enemy) {
+        //orientation between dink and enemy
+        getDinkEnemyOrientation(dink, enemy) {
                 let orientation = {
                     aspect: "",
                     positive: false
                 };
-                //Find which direction is greatest link and enemy position dif
-                let xDifference = king.x - enemy.x;
-                let yDifference = king.y - enemy.y;
+                //Find which direction is greatest dink and enemy position dif
+                let xDifference = dink.x - enemy.x;
+                let yDifference = dink.y - enemy.y;
 
                 //default to x if both equal
                 if (Math.abs(xDifference) >= Math.abs(yDifference)) {
@@ -704,7 +704,7 @@ class BaseScene extends Phaser.Scene {
         }
 
 
-        kingEscapes(nextLevel) {
+        dinkEscapes(nextLevel) {
             //load next scene if passed in, if null end the game
 
             if (nextLevel === null) {
@@ -713,8 +713,8 @@ class BaseScene extends Phaser.Scene {
                 this.gameOverSound.play();
 
                 this.matter.world.pause();
-                this.link.setTint(0xff0000);
-                this.link.play(this.nextDinkIdle, true);
+                this.dink.setTint(0xff0000);
+                this.dink.play(this.nextDinkIdle, true);
 
                 //check to see if we have the high score!
                 if (localStorage.highKingScore === undefined ||
@@ -723,20 +723,20 @@ class BaseScene extends Phaser.Scene {
                     console.log("New High Score Achieved!");
                 }
             } else {
-                console.log("King escaped to: " + nextLevel);
+                console.log("Dink escaped to: " + nextLevel);
                 this.scene.start(nextLevel);
             }
 
 
         }
 
-        kingCaptured() {
-            console.log("The King Was Captured!");
+        dinkCaptured() {
+            console.log("Dink Was Captured!");
             //pause 
             this.matter.world.pause();
-            //paint the link
-            this.link.setTint(0xff0000);
-            this.link.play(this.nextDinkIdle, true);
+            //paint the dink
+            this.dink.setTint(0xff0000);
+            this.dink.play(this.nextDinkIdle, true);
             //set minions to green and stop;
             this.enemies.forEach(function(enemy) {
                 if (enemy) {
