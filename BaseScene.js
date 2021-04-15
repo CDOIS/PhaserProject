@@ -1,8 +1,8 @@
 class BaseScene extends Phaser.Scene {
 
-        // "global" var for king next idle position;
+        // "global" var for link next idle position;
         // Static vars for char speeds and scores
-        static KING_SPEED = 10;
+        static LINK_SPEED = 5;
         static MINION_SPEED = 5;
         static MINION_SCORE = 10;
         static BLACKKNIGHT_SPEED = 6;
@@ -20,7 +20,7 @@ class BaseScene extends Phaser.Scene {
 
             this.sceneName = sceneName;
 
-            this.nextKingIdle = "king-idle-back";
+            this.nextDinkIdle = "link-idle-back";
             console.log("Finish parent constructor for Base Scene.");
 
         }
@@ -80,7 +80,7 @@ class BaseScene extends Phaser.Scene {
                 const barrelLayer = map.createLayer("Barrels", [tileset1], 0, 0);
                 const bookcaseLayer = map.createLayer("Bookcases", [tileset2], 0, 0);
 
-                //set the camera's start position so we are in the map - Camera centered on the king
+                //set the camera's start position so we are in the map - Camera centered on the link
                 // this.cameras.main.scrollX = 600;
                 // this.cameras.main.scrollY = 600;
 
@@ -89,13 +89,13 @@ class BaseScene extends Phaser.Scene {
                 //add spacebar
                 this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
-                //Create the king Sprite(Coke) and scale up! Mario Mushroom!
-                this.king = this.matter.add.sprite(400, 1300, 'character_sprites', 'king-back-0.png');
-                this.king.setScale(2);
-                this.king.setName("king");
+                //Create the link Sprite(Coke) and scale up! Mario Mushroom!
+                this.link = this.matter.add.sprite(400, 1300, 'character_sprites', 'link-back-0.png');
+                this.link.setScale(2);
+                this.link.setName("king");
                 //StopRotation 
-                this.king.setBounce(0.2);
-                this.king.setFixedRotation();
+                this.link.setBounce(0.2);
+                this.link.setFixedRotation();
 
                 //manually add colision zones for foundations layer
 
@@ -203,9 +203,9 @@ class BaseScene extends Phaser.Scene {
 
                 });
 
-                //set the camera to king!
+                //set the camera to link!
                 this.cameras.main.setBounds(-(map.widthInPixels / 2), 0, map.widthInPixels + 256, map.heightInPixels + 256)
-                this.cameras.main.startFollow(this.king);
+                this.cameras.main.startFollow(this.link);
                 //Add Enemies - 
                 //Find Spawn Points
                 let spawnPoints = new Array();
@@ -405,7 +405,7 @@ class BaseScene extends Phaser.Scene {
 
                 //handle matter collision types
                 this.matter.world.on("collisionstart", (event, bodyA, bodyB) => {
-                    //see if this is collision between king and escapePoint
+                    //see if this is collision between link and escapePoint
                     // console.log(bodyA.gameObject.name + "-" +
                     //     bodyB.gameObject.name);
                     if (bodyA.gameObject.name === "king" && bodyB.gameObject.name.startsWith("enemy") ||
@@ -433,7 +433,7 @@ class BaseScene extends Phaser.Scene {
 
                     } else if (bodyA.gameObject.name === "king" && bodyB.gameObject.name === "escapePoint" ||
                         bodyA.gameObject.name === "escapePoint" && bodyB.gameObject.name === "king") {
-                        console.log("The king escaped through the escape point");
+                        console.log("The link escaped through the escape point");
                         this.kingEscapes();
                     }
                 });
@@ -486,81 +486,81 @@ class BaseScene extends Phaser.Scene {
 
                     if (this.cursors.up.isDown && this.cursors.right.isDown) //northeast
                     {
-                        this.king.setVelocityY(-0.5 * (BaseScene.KING_SPEED));
-                        this.king.setVelocityX(BaseScene.KING_SPEED);
-                        this.king.play('king-walk-right', true);
-                        this.nextKingIdle = 'king-idle-right';
-                        this.king.direction = 'northeast';
+                        this.link.setVelocityY(-0.5 * (BaseScene.LINK_SPEED));
+                        this.link.setVelocityX(BaseScene.LINK_SPEED);
+                        this.link.play('link-walk-right', true);
+                        this.nextDinkIdle = 'link-idle-right';
+                        this.link.direction = 'northeast';
                     } else if (this.cursors.down.isDown && this.cursors.right.isDown) //southeast
                     {
-                        this.king.setVelocityY(0.5 * (BaseScene.KING_SPEED));
-                        this.king.setVelocityX(BaseScene.KING_SPEED);
-                        this.king.play('king-walk-right', true);
-                        this.nextKingIdle = 'king-idle-right';
-                        this.king.direction = 'southeast';
+                        this.link.setVelocityY(0.5 * (BaseScene.LINK_SPEED));
+                        this.link.setVelocityX(BaseScene.LINK_SPEED);
+                        this.link.play('link-walk-right', true);
+                        this.nextDinkIdle = 'link-idle-right';
+                        this.link.direction = 'southeast';
 
                     } else if (this.cursors.up.isDown && this.cursors.left.isDown) //northwest
                     {
-                        this.king.setVelocityY(-0.5 * (BaseScene.KING_SPEED));
-                        this.king.setVelocityX(-(BaseScene.KING_SPEED));
-                        this.king.play('king-walk-left', true);
-                        this.nextKingIdle = 'king-idle-left';
-                        this.king.direction = 'northwest';
+                        this.link.setVelocityY(-0.5 * (BaseScene.LINK_SPEED));
+                        this.link.setVelocityX(-(BaseScene.LINK_SPEED));
+                        this.link.play('link-walk-left', true);
+                        this.nextDinkIdle = 'link-idle-left';
+                        this.link.direction = 'northwest';
 
                     } else if (this.cursors.down.isDown && this.cursors.left.isDown) //southwest
                     {
-                        this.king.setVelocityY(0.5 * (BaseScene.KING_SPEED));
-                        this.king.setVelocityX(-(BaseScene.KING_SPEED));
-                        this.king.play('king-walk-left', true);
-                        this.nextKingIdle = 'king-idle-left';
-                        this.king.direction = 'southwest';
+                        this.link.setVelocityY(0.5 * (BaseScene.LINK_SPEED));
+                        this.link.setVelocityX(-(BaseScene.LINK_SPEED));
+                        this.link.play('link-walk-left', true);
+                        this.nextDinkIdle = 'link-idle-left';
+                        this.link.direction = 'southwest';
 
                     }
-                    //king move:
+                    //link move:
                     else if (this.cursors.up.isDown) {
-                        this.king.setVelocityY(-(BaseScene.KING_SPEED));
-                        this.king.setVelocityX(0);
-                        this.king.play('king-walk-up', true);
-                        this.nextKingIdle = 'king-idle-back';
-                        this.king.direction = 'north';
+                        this.link.setVelocityY(-(BaseScene.LINK_SPEED));
+                        this.link.setVelocityX(0);
+                        this.link.play('link-walk-up', true);
+                        this.nextDinkIdle = 'link-idle-back';
+                        this.link.direction = 'north';
 
                     } else if (this.cursors.down.isDown) {
-                        this.king.setVelocityY(BaseScene.KING_SPEED);
-                        this.king.setVelocityX(0);
-                        this.king.play('king-walk-down', true);
-                        this.nextKingIdle = 'king-idle-front';
-                        this.king.direction = 'south';
+                        this.link.setVelocityY(BaseScene.LINK_SPEED);
+                        this.link.setVelocityX(0);
+                        this.link.play('link-walk-down', true);
+                        this.nextDinkIdle = 'link-idle-front';
+                        this.link.direction = 'south';
 
                     } else if (this.cursors.right.isDown) {
-                        this.king.setVelocityY(0);
-                        this.king.setVelocityX(BaseScene.KING_SPEED);
-                        this.king.play('king-walk-right', true);
-                        this.nextKingIdle = 'king-idle-right';
-                        this.king.direction = 'east';
+                        this.link.setVelocityY(0);
+                        this.link.setVelocityX(BaseScene.LINK_SPEED);
+                        this.link.play('link-walk-right', true);
+                        this.nextDinkIdle = 'link-idle-right';
+                        this.link.direction = 'east';
 
                     } else if (this.cursors.left.isDown) {
-                        this.king.setVelocityY(0);
-                        this.king.setVelocityX(-(BaseScene.KING_SPEED));
-                        this.king.play('king-walk-left', true);
-                        this.nextKingIdle = 'king-idle-left';
-                        this.king.direction = 'west';
+                        this.link.setVelocityY(0);
+                        this.link.setVelocityX(-(BaseScene.LINK_SPEED));
+                        this.link.play('link-walk-left', true);
+                        this.nextDinkIdle = 'link-idle-left';
+                        this.link.direction = 'west';
 
                     } else //standing still - show next idle anim.
                     {
-                        this.king.setVelocityY(0);
-                        this.king.setVelocityX(0);
-                        this.king.play(this.nextKingIdle, true);
+                        this.link.setVelocityY(0);
+                        this.link.setVelocityX(0);
+                        this.link.play(this.nextDinkIdle, true);
                     }
 
                     //start minions moving
                     let currentScene = this;
-                    let king = this.king;
+                    let king = this.link;
 
                     //check if minions in camera and start them moving
                     this.enemies.forEach(function(enemy) {
                         if (enemy) {
                             if (currentScene.cameras.main.worldView.contains(enemy.x, enemy.y)) {
-                                //need to determine the orientation between the king and the minion
+                                //need to determine the orientation between the link and the minion
                                 let kingOrientation = currentScene.getKingEnemyOrientation(king, enemy);
                                 let enemyAnimation = enemy.enemyType + "-idle-front";
                                 let enemyXVelocity = 0;
@@ -587,7 +587,7 @@ class BaseScene extends Phaser.Scene {
                                 else {
                                     if (enemyXVelocity === 0 && kingOrientation.aspect === "x") {
                                         enemyYVelocity = 0;
-                                        //start moving towards the king on "X"
+                                        //start moving towards the link on "X"
                                         if (kingOrientation.positive === true) {
 
                                             enemyXVelocity = enemy.speed;
@@ -598,7 +598,7 @@ class BaseScene extends Phaser.Scene {
                                         }
                                     } else if (enemyXVelocity === 0 && kingOrientation.aspect === "y") {
                                         enemyXVelocity = 0;
-                                        //start moving towards the king on "y"
+                                        //start moving towards the link on "y"
                                         if (kingOrientation.positive === true) {
 
                                             enemyYVelocity = enemy.speed;
@@ -635,13 +635,13 @@ class BaseScene extends Phaser.Scene {
             return stringNumber;
         }
 
-        //orientation between king and enemy
+        //orientation between link and enemy
         getKingEnemyOrientation(king, enemy) {
                 let orientation = {
                     aspect: "",
                     positive: false
                 };
-                //Find which direction is greatest king and enemy position dif
+                //Find which direction is greatest link and enemy position dif
                 let xDifference = king.x - enemy.x;
                 let yDifference = king.y - enemy.y;
 
@@ -713,8 +713,8 @@ class BaseScene extends Phaser.Scene {
                 this.gameOverSound.play();
 
                 this.matter.world.pause();
-                this.king.setTint(0xff0000);
-                this.king.play(this.nextKingIdle, true);
+                this.link.setTint(0xff0000);
+                this.link.play(this.nextDinkIdle, true);
 
                 //check to see if we have the high score!
                 if (localStorage.highKingScore === undefined ||
@@ -734,9 +734,9 @@ class BaseScene extends Phaser.Scene {
             console.log("The King Was Captured!");
             //pause 
             this.matter.world.pause();
-            //paint the king
-            this.king.setTint(0xff0000);
-            this.king.play(this.nextKingIdle, true);
+            //paint the link
+            this.link.setTint(0xff0000);
+            this.link.play(this.nextDinkIdle, true);
             //set minions to green and stop;
             this.enemies.forEach(function(enemy) {
                 if (enemy) {
@@ -934,7 +934,7 @@ class BaseScene extends Phaser.Scene {
             let logoText = this.make.text({
                 x: width / 2,
                 y: 100,
-                text: 'Palace Revolt II',
+                text: 'Dink Revolt',
                 style: {
                     font: '60px tahoma',
                     fill: '#ffd700'

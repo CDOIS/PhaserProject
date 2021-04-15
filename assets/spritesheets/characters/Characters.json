@@ -1,7 +1,7 @@
 {
 	"textures": [
 		{
-			"image": "Characters.png",
+			"image": "Characters1.png",
 			"format": "RGBA8888",
 			"size": {
 				"w": 484,
@@ -178,7 +178,7 @@
 					}
 				},
 				{
-					"filename": "king-back-1.png",
+					"filename": "link-back-1.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -199,7 +199,7 @@
 					}
 				},
 				{
-					"filename": "king-front-1.png",
+					"filename": "link-front-1.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -283,7 +283,7 @@
 					}
 				},
 				{
-					"filename": "king-back-0.png",
+					"filename": "link-back-0.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -304,7 +304,7 @@
 					}
 				},
 				{
-					"filename": "king-back-2.png",
+					"filename": "link-back-2.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -325,7 +325,7 @@
 					}
 				},
 				{
-					"filename": "king-front-0.png",
+					"filename": "link-front-0.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -346,7 +346,7 @@
 					}
 				},
 				{
-					"filename": "king-front-2.png",
+					"filename": "link-front-2.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -703,7 +703,7 @@
 					}
 				},
 				{
-					"filename": "king-left-0.png",
+					"filename": "link-left-0.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -724,7 +724,7 @@
 					}
 				},
 				{
-					"filename": "king-left-1.png",
+					"filename": "link-left-1.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -745,7 +745,7 @@
 					}
 				},
 				{
-					"filename": "king-left-2.png",
+					"filename": "link-left-2.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -766,7 +766,7 @@
 					}
 				},
 				{
-					"filename": "king-right-0.png",
+					"filename": "link-right-0.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -787,7 +787,7 @@
 					}
 				},
 				{
-					"filename": "king-right-1.png",
+					"filename": "link-right-1.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -808,7 +808,7 @@
 					}
 				},
 				{
-					"filename": "king-right-2.png",
+					"filename": "link-right-2.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {

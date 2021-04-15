@@ -1,4 +1,3 @@
-//Ricardo Oliveira - W0428722
 //IIFE - Script at bottom
 (function() {
     //Main code here - safe from global context
@@ -9,7 +8,7 @@
         width: 800,
         height: 600,
         backgroundColor: "#2d2d2d",
-        parent: "palace-revolt",
+        parent: "dink-revolt",
         pixelArt: true,
         physics: {
             default: "matter",
@@ -23,7 +22,7 @@
         //     create: create,
         //     update: update
         // }
-        scene: [Scene1, Scene2]
+        scene: [Scene1]
     };
 
     let game = new Phaser.Game(config);

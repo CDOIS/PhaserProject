@@ -11,50 +11,50 @@ class Fireball extends Phaser.Physics.Matter.Sprite {
         let fireballYVelocity = 0;
         let fireballAnimation = "";
 
-        //fireball shoots in current king direction
+        //fireball shoots in current link direction
 
-        if (scene.king.direction === "north") {
-            x = scene.king.x;
-            y = scene.king.y - 64;
+        if (scene.link.direction === "north") {
+            x = scene.link.x;
+            y = scene.link.y - 64;
             fireballYVelocity = -(Fireball.FIREBALL_SPEED);
             fireballAnimation = "fireball-north";
-        } else if (scene.king.direction === "northeast") {
-            x = scene.king.x + 64;
-            y = scene.king.y - 32;
+        } else if (scene.link.direction === "northeast") {
+            x = scene.link.x + 64;
+            y = scene.link.y - 32;
             fireballXVelocity = Fireball.FIREBALL_SPEED;
             fireballYVelocity = -(0.5 * Fireball.FIREBALL_SPEED);
             fireballAnimation = "fireball-northeast";
-        } else if (scene.king.direction === "east") {
-            x = scene.king.x + 64;
-            y = scene.king.y;
+        } else if (scene.link.direction === "east") {
+            x = scene.link.x + 64;
+            y = scene.link.y;
             fireballXVelocity = Fireball.FIREBALL_SPEED;
             fireballAnimation = "fireball-east";
-        } else if (scene.king.direction === "southeast") {
-            x = scene.king.x + 64;
-            y = scene.king.y + 32;
+        } else if (scene.link.direction === "southeast") {
+            x = scene.link.x + 64;
+            y = scene.link.y + 32;
             fireballXVelocity = Fireball.FIREBALL_SPEED;
             fireballYVelocity = 0.5 * Fireball.FIREBALL_SPEED;
             fireballAnimation = "fireball-southeast";
-        } else if (scene.king.direction === "south") {
-            x = scene.king.x;
-            y = scene.king.y + 64;
+        } else if (scene.link.direction === "south") {
+            x = scene.link.x;
+            y = scene.link.y + 64;
             fireballYVelocity = Fireball.FIREBALL_SPEED;
             fireballAnimation = "fireball-south";
-        } else if (scene.king.direction === "southwest") {
-            x = scene.king.x - 64;
-            y = scene.king.y + 32;
+        } else if (scene.link.direction === "southwest") {
+            x = scene.link.x - 64;
+            y = scene.link.y + 32;
             fireballXVelocity = -(Fireball.FIREBALL_SPEED);
 
             fireballYVelocity = 0.5 * Fireball.FIREBALL_SPEED;
             fireballAnimation = "fireball-southwest";
-        } else if (scene.king.direction === "west") {
-            x = scene.king.x - 64;
-            y = scene.king.y;
+        } else if (scene.link.direction === "west") {
+            x = scene.link.x - 64;
+            y = scene.link.y;
             fireballXVelocity = -(Fireball.FIREBALL_SPEED);
             fireballAnimation = "fireball-west";
         } else if (scene.king.direction === "northwest") {
-            x = scene.king.x - 64;
-            y = scene.king.y - 32;
+            x = scene.link.x - 64;
+            y = scene.link.y - 32;
             fireballXVelocity = -(Fireball.FIREBALL_SPEED);
 
             fireballYVelocity = -(0.5 * Fireball.FIREBALL_SPEED);
