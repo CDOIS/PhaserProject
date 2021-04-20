@@ -10,7 +10,7 @@
 			"scale": 1,
 			"frames": [
 				{
-					"filename": "enemy-back-0.png",
+					"filename": "slime-back-0.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -31,7 +31,7 @@
 					}
 				},
 				{
-					"filename": "enemy-back-2.png",
+					"filename": "slime-back-2.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -52,7 +52,7 @@
 					}
 				},
 				{
-					"filename": "enemy-front-0.png",
+					"filename": "slime-front-0.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -73,7 +73,7 @@
 					}
 				},
 				{
-					"filename": "enemy-front-2.png",
+					"filename": "slime-front-2.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -94,7 +94,7 @@
 					}
 				},
 				{
-					"filename": "enemy-back-1.png",
+					"filename": "slime-back-1.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -115,7 +115,7 @@
 					}
 				},
 				{
-					"filename": "enemy-front-1.png",
+					"filename": "slime-front-1.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -136,7 +136,7 @@
 					}
 				},
 				{
-					"filename": "enemy1-back-1.png",
+					"filename": "cloud_boss-back-1.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -157,7 +157,7 @@
 					}
 				},
 				{
-					"filename": "enemy1-front-1.png",
+					"filename": "cloud_boss-front-1.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -220,7 +220,7 @@
 					}
 				},
 				{
-					"filename": "minion-front-1.png",
+					"filename": "spider-front-1.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -241,7 +241,7 @@
 					}
 				},
 				{
-					"filename": "enemy1-front-0.png",
+					"filename": "cloud_boss-front-0.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -262,7 +262,7 @@
 					}
 				},
 				{
-					"filename": "enemy1-front-2.png",
+					"filename": "cloud_boss-front-2.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -367,7 +367,7 @@
 					}
 				},
 				{
-					"filename": "minion-front-0.png",
+					"filename": "spider-front-0.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -388,7 +388,7 @@
 					}
 				},
 				{
-					"filename": "minion-front-2.png",
+					"filename": "spider-front-2.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -409,7 +409,7 @@
 					}
 				},
 				{
-					"filename": "enemy-left-0.png",
+					"filename": "slime-left-0.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -430,7 +430,7 @@
 					}
 				},
 				{
-					"filename": "enemy-left-1.png",
+					"filename": "slime-left-1.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -451,7 +451,7 @@
 					}
 				},
 				{
-					"filename": "enemy-left-2.png",
+					"filename": "slime-left-2.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -472,7 +472,7 @@
 					}
 				},
 				{
-					"filename": "enemy-right-0.png",
+					"filename": "slime-right-0.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -493,7 +493,7 @@
 					}
 				},
 				{
-					"filename": "enemy-right-1.png",
+					"filename": "slime-right-1.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -514,7 +514,7 @@
 					}
 				},
 				{
-					"filename": "enemy-right-2.png",
+					"filename": "slime-right-2.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -535,7 +535,7 @@
 					}
 				},
 				{
-					"filename": "enemy1-back-0.png",
+					"filename": "cloud_boss-back-0.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -556,7 +556,7 @@
 					}
 				},
 				{
-					"filename": "enemy1-back-2.png",
+					"filename": "cloud_boss-back-2.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -577,7 +577,7 @@
 					}
 				},
 				{
-					"filename": "minion-back-0.png",
+					"filename": "spider-back-0.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -598,7 +598,7 @@
 					}
 				},
 				{
-					"filename": "minion-back-1.png",
+					"filename": "spider-back-1.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -619,7 +619,7 @@
 					}
 				},
 				{
-					"filename": "minion-back-2.png",
+					"filename": "spider-back-2.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -640,7 +640,7 @@
 					}
 				},
 				{
-					"filename": "enemy1-left-0.png",
+					"filename": "cloud_boss-left-0.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -661,7 +661,7 @@
 					}
 				},
 				{
-					"filename": "enemy1-left-1.png",
+					"filename": "cloud_boss-left-1.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -682,7 +682,7 @@
 					}
 				},
 				{
-					"filename": "enemy1-left-2.png",
+					"filename": "cloud_boss-left-2.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -829,7 +829,7 @@
 					}
 				},
 				{
-					"filename": "enemy1-right-0.png",
+					"filename": "cloud_boss-right-0.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -850,7 +850,7 @@
 					}
 				},
 				{
-					"filename": "enemy1-right-1.png",
+					"filename": "cloud_boss-right-1.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -871,7 +871,7 @@
 					}
 				},
 				{
-					"filename": "enemy1-right-2.png",
+					"filename": "cloud_boss-right-2.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -892,7 +892,7 @@
 					}
 				},
 				{
-					"filename": "minion-left-0.png",
+					"filename": "spider-left-0.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -913,7 +913,7 @@
 					}
 				},
 				{
-					"filename": "minion-left-1.png",
+					"filename": "spider-left-1.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -934,7 +934,7 @@
 					}
 				},
 				{
-					"filename": "minion-left-2.png",
+					"filename": "spider-left-2.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -955,7 +955,7 @@
 					}
 				},
 				{
-					"filename": "minion-right-0.png",
+					"filename": "spider-right-0.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -976,7 +976,7 @@
 					}
 				},
 				{
-					"filename": "minion-right-1.png",
+					"filename": "spider-right-1.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -997,7 +997,7 @@
 					}
 				},
 				{
-					"filename": "minion-right-2.png",
+					"filename": "spider-right-2.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {

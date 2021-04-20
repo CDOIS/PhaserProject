@@ -2,14 +2,15 @@ class BaseScene extends Phaser.Scene {
 
         // "global" var for dink next idle position;
         // Static vars for char speeds and scores
-        static LINK_SPEED = 5;
-        static MINION_SPEED = 2;
-        static MINION_SCORE = 10;
-        static ENEMIES_SPEED = 2;
-        static ENEMIES_SCORE = 50;
+        static DINK_SPEED = 2;
+        static SPIDER_SPEED = 1.5;
+        static SPIDER_SCORE = 10;
 
-        static ENEMIES1_SPEED = 2;
-        static ENEMIES1_SCORE = 100;
+        static SLIME_SPEED = 0.5;
+        static SLIME_SCORE = 50;
+
+        static CLOUD_SPEED = 1;
+        static CLOUD_SCORE = 100;
 
         static CURRENT_SCORE = 0;
         static gamePaused = false;
@@ -22,6 +23,8 @@ class BaseScene extends Phaser.Scene {
 
             this.nextDinkIdle = "dink-idle-back";
             console.log("Finish parent constructor for Base Scene.");
+
+            //this.gameOver = false;
 
         }
 
@@ -50,6 +53,7 @@ class BaseScene extends Phaser.Scene {
             }
 
             //Preload our EVENT sounds
+            this.load.audio("audio_majestic_castle_storm","assets/sounds/majestic_castle_storm.mp3");
             this.load.audio("audio_fireball", "assets/sounds/bombblow.mp3");
             this.load.audio("audio_explosion", "assets/sounds/explosion.mp3");
             this.load.audio("audio_game_over", "assets/sounds/linkdie.mp3");
@@ -57,10 +61,12 @@ class BaseScene extends Phaser.Scene {
 
         create(mapKey) {
                 //create sounds first
+                this.castleMajesticSound = this.sound.add("audio_majestic_castle_storm");
                 this.fireballSound = this.sound.add("audio_fireball");
                 this.explosionSound = this.sound.add("audio_explosion");
                 this.gameOverSound = this.sound.add("audio_game_over");
 
+            
                 //create the map
                 const map = this.add.tilemap(mapKey);
 
@@ -80,10 +86,7 @@ class BaseScene extends Phaser.Scene {
                 const barrelLayer = map.createLayer("Barrels", [tileset1], 0, 0);
                 const bookcaseLayer = map.createLayer("Bookcases", [tileset2], 0, 0);
 
-                //set the camera's start position so we are in the map - Camera centered on the dink
-                // this.cameras.main.scrollX = 600;
-                // this.cameras.main.scrollY = 600;
-
+     
                 //turn on the cursor keys, so we can pan around the map
                 this.cursors = this.input.keyboard.createCursorKeys();
                 //add spacebar
@@ -93,6 +96,11 @@ class BaseScene extends Phaser.Scene {
                 this.dink = this.matter.add.sprite(400, 1300, 'character_sprites', 'dink-back-0.png');
                 this.dink.setScale(2);
                 this.dink.setName("dink");
+
+                this.gameOverText = this.add.text(400, 1300, 'Game Over', {fontSize: '64px Arial', fill: '#FFFFFF'});
+                this.gameOverText.setOrigin(0.5);
+                this.gameOverText.visible = false;
+
                 //StopRotation 
                 this.dink.setBounce(0.2);
                 this.dink.setFixedRotation();
@@ -234,7 +242,8 @@ class BaseScene extends Phaser.Scene {
                         }
                     });
                 });
-                //Minions/enemies;
+
+                //Spider enemies;
                 this.enemies = new Array();
                 let spawnPointUsed = new Array();
 
@@ -247,34 +256,34 @@ class BaseScene extends Phaser.Scene {
 
                     spawnPointUsed.push(spawnPointIndex)
 
-                    //create Minion  at that Spawn Point
-                    let newMinion = this.matter.add.sprite(
+                    //create Spider  at that Spawn Point
+                    let newSpider = this.matter.add.sprite(
                         spawnPoints[spawnPointIndex].x,
                         spawnPoints[spawnPointIndex].y,
-                        'character_sprites', 'minion-front-0.png'
+                        'character_sprites', 'spider-front-0.png'
                     );
 
-                    //set minion properties
-                    newMinion.maxHitCount = 1;
-                    newMinion.hitCount = 0;
-                    newMinion.enemyType = "minion";
-                    newMinion.speed = BaseScene.MINION_SPEED;
-                    newMinion.scoreValue = BaseScene.MINION_SCORE;
+                    //set spider properties
+                    newSpider.maxHitCount = 1;
+                    newSpider.hitCount = 0;
+                    newSpider.enemyType = "spider";
+                    newSpider.speed = BaseScene.SPIDER_SPEED;
+                    newSpider.scoreValue = BaseScene.SPIDER_SCORE;
 
-                    newMinion.setScale(2);
-                    newMinion.setBounce(0.2);
-                    newMinion.setFixedRotation();
-                    newMinion.setName("enemy-minion" + (i + 1));
+                    newSpider.setScale(2);
+                    newSpider.setBounce(0.2);
+                    newSpider.setFixedRotation();
+                    newSpider.setName("enemy-spider" + (i + 1));
 
                     //Temp - log spawn point chosen;
-                    console.log(newMinion.name + " created at spawn point: :" + spawnPointIndex);
+                    console.log(newSpider.name + " created at spawn point: :" + spawnPointIndex);
 
                     //add new enemy to array of enemies
-                    this.enemies.push(newMinion);
+                    this.enemies.push(newSpider);
                 }
-                //BLACK KNIGHTS
 
 
+                //Slimes Enemies
                 for (let i = 0; i < 2; i++) {
                     let spawnPointIndex = -1;
                     //need to make sure spawn pop
@@ -284,34 +293,34 @@ class BaseScene extends Phaser.Scene {
 
                     spawnPointUsed.push(spawnPointIndex)
 
-                    //create BLACK KNIGHT  at that Spawn Point
-                    let newBlackKnight = this.matter.add.sprite(
+                    //create Slime  at that Spawn Point
+                    let newSlime = this.matter.add.sprite(
                         spawnPoints[spawnPointIndex].x,
                         spawnPoints[spawnPointIndex].y,
-                        'character_sprites', 'enemy-front-0.png'
+                        'character_sprites', 'slime-front-0.png'
                     );
 
-                    //set BK properties
-                    newBlackKnight.maxHitCount = 2;
-                    newBlackKnight.hitCount = 0;
-                    newBlackKnight.enemyType = "enemy";
-                    newBlackKnight.speed = BaseScene.ENEMIES_SPEED;
-                    newBlackKnight.scoreValue = BaseScene.ENEMIES_SCORE;
+                    //set Slime properties
+                    newSlime.maxHitCount = 2;
+                    newSlime.hitCount = 0;
+                    newSlime.enemyType = "slime";
+                    newSlime.speed = BaseScene.SLIME_SPEED;
+                    newSlime.scoreValue = BaseScene.SLIME_SCORE;
 
-                    newBlackKnight.setScale(2);
-                    newBlackKnight.setBounce(0.2);
-                    newBlackKnight.setFixedRotation();
-                    newBlackKnight.setName("enemy-enemy" + (i + 1));
+                    newSlime.setScale(2);
+                    newSlime.setBounce(0.2);
+                    newSlime.setFixedRotation();
+                    newSlime.setName("enemy-slime" + (i + 1));
 
                     //Temp - log spawn point chosen;
-                    console.log(newBlackKnight.name + " created at spawn point: :" + spawnPointIndex);
+                    console.log(newSlime.name + " created at spawn point: :" + spawnPointIndex);
 
                     //add new enemy to array of enemies
-                    this.enemies.push(newBlackKnight);
+                    this.enemies.push(newSlime);
                 }
-                //EvilPrince;
 
 
+                // Evil Cloud Boss
                 for (let i = 0; i < 1; i++) {
                     let spawnPointIndex = -1;
                     //need to make sure spawn pop
@@ -321,30 +330,30 @@ class BaseScene extends Phaser.Scene {
 
                     spawnPointUsed.push(spawnPointIndex)
 
-                    //create EP  at that Spawn Point
-                    let newEvilPrince = this.matter.add.sprite(
+                    //create Evil Cloud Boss at that Spawn Point
+                    let newCloudBoss = this.matter.add.sprite(
                         spawnPoints[spawnPointIndex].x,
                         spawnPoints[spawnPointIndex].y,
-                        'character_sprites', 'enemy1-front-0.png'
+                        'character_sprites', 'cloud_boss-front-0.png'
                     );
 
-                    //set EP properties
-                    newEvilPrince.maxHitCount = 3;
-                    newEvilPrince.hitCount = 0;
-                    newEvilPrince.enemyType = "enemy1";
-                    newEvilPrince.speed = BaseScene.ENEMIES1_SPEED;
-                    newEvilPrince.scoreValue = BaseScene.ENEMIES1_SCORE;
+                    //set Evil Cloud Boss properties
+                    newCloudBoss.maxHitCount = 10;
+                    newCloudBoss.hitCount = 0;
+                    newCloudBoss.enemyType = "cloud_boss";
+                    newCloudBoss.speed = BaseScene.CLOUD_SPEED;
+                    newCloudBoss.scoreValue = BaseScene.CLOUD_SCORE;
 
-                    newEvilPrince.setScale(2);
-                    newEvilPrince.setBounce(0.2);
-                    newEvilPrince.setFixedRotation();
-                    newEvilPrince.setName("enemy-enemy1" + (i + 1));
+                    newCloudBoss.setScale(2);
+                    newCloudBoss.setBounce(0.2);
+                    newCloudBoss.setFixedRotation();
+                    newCloudBoss.setName("enemy-cloud_boss" + (i + 1));
 
                     //Temp - log spawn point chosen;
-                    console.log(newEvilPrince.name + " created at spawn point: :" + spawnPointIndex);
+                    console.log(newCloudBoss.name + " created at spawn point: :" + spawnPointIndex);
 
                     //add new enemy to array of enemies
-                    this.enemies.push(newEvilPrince);
+                    this.enemies.push(newCloudBoss);
                 }
                 // Add Projectiles
                 this.projectiles = new Array();
@@ -383,9 +392,9 @@ class BaseScene extends Phaser.Scene {
 
                 //create animations;
                 this.createCharacterAnimations("dink");
-                this.createCharacterAnimations("minion");
-                this.createCharacterAnimations("enemy");
-                this.createCharacterAnimations("enemy1");
+                this.createCharacterAnimations("spider");
+                this.createCharacterAnimations("slime");
+                this.createCharacterAnimations("cloud_boss");
 
                 //create anim projectiles;
                 this.createFireballAnimations();
@@ -463,7 +472,7 @@ class BaseScene extends Phaser.Scene {
                 this.scoreText.setScrollFactor(0);
 
                 this.highScoreText = this.add.text(25, 60, "HIGHSCORE: " +
-                    this.zeroPad(this.highScore, 3), fontObject);
+                    this.zeroPad(BaseScene.CURRENT_SCORE, 3), fontObject);
                 this.highScoreText.setScrollFactor(0);
 
             } //BOTTOM OF CREATE
@@ -486,31 +495,31 @@ class BaseScene extends Phaser.Scene {
 
                     if (this.cursors.up.isDown && this.cursors.right.isDown) //northeast
                     {
-                        this.dink.setVelocityY(-0.5 * (BaseScene.LINK_SPEED));
-                        this.dink.setVelocityX(BaseScene.LINK_SPEED);
+                        this.dink.setVelocityY(-0.5 * (BaseScene.DINK_SPEED));
+                        this.dink.setVelocityX(BaseScene.DINK_SPEED);
                         this.dink.play('dink-walk-right', true);
                         this.nextDinkIdle = 'dink-idle-right';
                         this.dink.direction = 'northeast';
                     } else if (this.cursors.down.isDown && this.cursors.right.isDown) //southeast
                     {
-                        this.dink.setVelocityY(0.5 * (BaseScene.LINK_SPEED));
-                        this.dink.setVelocityX(BaseScene.LINK_SPEED);
+                        this.dink.setVelocityY(0.5 * (BaseScene.DINK_SPEED));
+                        this.dink.setVelocityX(BaseScene.DINK_SPEED);
                         this.dink.play('dink-walk-right', true);
                         this.nextDinkIdle = 'dink-idle-right';
                         this.dink.direction = 'southeast';
 
                     } else if (this.cursors.up.isDown && this.cursors.left.isDown) //northwest
                     {
-                        this.dink.setVelocityY(-0.5 * (BaseScene.LINK_SPEED));
-                        this.dink.setVelocityX(-(BaseScene.LINK_SPEED));
+                        this.dink.setVelocityY(-0.5 * (BaseScene.DINK_SPEED));
+                        this.dink.setVelocityX(-(BaseScene.DINK_SPEED));
                         this.dink.play('dink-walk-left', true);
                         this.nextDinkIdle = 'dink-idle-left';
                         this.dink.direction = 'northwest';
 
                     } else if (this.cursors.down.isDown && this.cursors.left.isDown) //southwest
                     {
-                        this.dink.setVelocityY(0.5 * (BaseScene.LINK_SPEED));
-                        this.dink.setVelocityX(-(BaseScene.LINK_SPEED));
+                        this.dink.setVelocityY(0.5 * (BaseScene.DINK_SPEED));
+                        this.dink.setVelocityX(-(BaseScene.DINK_SPEED));
                         this.dink.play('dink-walk-left', true);
                         this.nextDinkIdle = 'dink-idle-left';
                         this.dink.direction = 'southwest';
@@ -518,14 +527,14 @@ class BaseScene extends Phaser.Scene {
                     }
                     //dink move:
                     else if (this.cursors.up.isDown) {
-                        this.dink.setVelocityY(-(BaseScene.LINK_SPEED));
+                        this.dink.setVelocityY(-(BaseScene.DINK_SPEED));
                         this.dink.setVelocityX(0);
                         this.dink.play('dink-walk-up', true);
                         this.nextDinkIdle = 'dink-idle-back';
                         this.dink.direction = 'north';
 
                     } else if (this.cursors.down.isDown) {
-                        this.dink.setVelocityY(BaseScene.LINK_SPEED);
+                        this.dink.setVelocityY(BaseScene.DINK_SPEED);
                         this.dink.setVelocityX(0);
                         this.dink.play('dink-walk-down', true);
                         this.nextDinkIdle = 'dink-idle-front';
@@ -533,14 +542,14 @@ class BaseScene extends Phaser.Scene {
 
                     } else if (this.cursors.right.isDown) {
                         this.dink.setVelocityY(0);
-                        this.dink.setVelocityX(BaseScene.LINK_SPEED);
+                        this.dink.setVelocityX(BaseScene.DINK_SPEED);
                         this.dink.play('dink-walk-right', true);
                         this.nextDinkIdle = 'dink-idle-right';
                         this.dink.direction = 'east';
 
                     } else if (this.cursors.left.isDown) {
                         this.dink.setVelocityY(0);
-                        this.dink.setVelocityX(-(BaseScene.LINK_SPEED));
+                        this.dink.setVelocityX(-(BaseScene.DINK_SPEED));
                         this.dink.play('dink-walk-left', true);
                         this.nextDinkIdle = 'dink-idle-left';
                         this.dink.direction = 'west';
@@ -552,11 +561,11 @@ class BaseScene extends Phaser.Scene {
                         this.dink.play(this.nextDinkIdle, true);
                     }
 
-                    //start minions moving
+                    //start enemies moving
                     let currentScene = this;
                     let dink = this.dink;
 
-                    //check if minions in camera and start them moving
+                    //check if enemies in camera and start them moving
                     this.enemies.forEach(function(enemy) {
                         if (enemy) {
                             if (currentScene.cameras.main.worldView.contains(enemy.x, enemy.y)) {
@@ -715,16 +724,17 @@ class BaseScene extends Phaser.Scene {
                 this.matter.world.pause();
                 this.dink.setTint(0xff0000);
                 this.dink.play(this.nextDinkIdle, true);
+            
 
                 //check to see if we have the high score!
-                if (localStorage.highKingScore === undefined ||
-                    localStorage.highKingScore < BaseScene.CURRENT_SCORE) {
-                    localStorage.highKingScore = BaseScene.CURRENT_SCORE;
-                    console.log("New High Score Achieved!");
-                }
-            } else {
-                console.log("Dink escaped to: " + nextLevel);
-                this.scene.start(nextLevel);
+            //     if (localStorage.highKingScore === undefined ||
+            //         localStorage.highKingScore < BaseScene.CURRENT_SCORE) {
+            //         localStorage.highKingScore = BaseScene.CURRENT_SCORE;
+            //         console.log("New High Score Achieved!");
+            //     }
+            // } else {
+            //     console.log("Dink escaped to: " + nextLevel);
+            //     this.scene.start(nextLevel);
             }
 
 
@@ -748,6 +758,12 @@ class BaseScene extends Phaser.Scene {
             //stop sounds!
             this.levelMusic.stop();
             this.gameOverSound.play();
+
+            //this.gameOver = true;
+            this.gameOverText.visible = true;
+
+            // refresh screen with mouse click after dink is captured
+            //this.input.on('pointerdown', () => this.start("Level1"))
         }
 
         //ANIMATION METHODS
@@ -930,7 +946,7 @@ class BaseScene extends Phaser.Scene {
             let width = this.cameras.main.width;
             let height = this.cameras.main.height;
 
-            //PALACE REVolt LOGO
+            //Dink REVolt LOGO
             let logoText = this.make.text({
                 x: width / 2,
                 y: 100,
